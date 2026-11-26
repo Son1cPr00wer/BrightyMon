@@ -1,0 +1,43 @@
+name: Build BrightyMon for macOS
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch: # Позволяет запускать сборку вручную кнопкой на сайте GitHub
+
+jobs:
+  build-macos:
+    runs-on: macos-latest # Использует актуальную виртуальную машину Apple Silicon (arm64)
+
+    steps:
+      - name: Скачивание кода из репозитория
+        uses: actions/checkout@v4
+
+      - name: Установка Python с поддержкой Tkinter
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Установка зависимостей
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller pystray Pillow
+
+      - name: Сборка русской и английской версий
+        run: |
+          pyinstaller --clean --onefile --windowed --name BrightyMon BrightyMon.py
+          pyinstaller --clean --onefile --windowed --name BrightyMon_en BrightyMon_en.py
+
+      - name: Упаковка приложений в ZIP (сохраняет права на запуск)
+        run: |
+          cd dist
+          ditto -c -k --sequesterRsrc --keepParent BrightyMon.app BrightyMon-macOS.zip
+          ditto -c -k --sequesterRsrc --keepParent BrightyMon_en.app BrightyMon_en-macOS.zip
+
+      - name: Загрузка готовых файлов для скачивания
+        uses: actions/upload-artifact@v4
+        with:
+          name: BrightyMon-macOS-builds
+          path: |
+            dist/BrightyMon-macOS.zip
+            dist/BrightyMon_en-macOS.zip

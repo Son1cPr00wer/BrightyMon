@@ -29,7 +29,8 @@ pip install -r requirements.txt
 python BrightyMon.py
 ```
 
-На Linux нужен X11 (сессия с треем/appindicator). На Wayland без LayerShell трей может быть недоступен — используйте X11/XWayland-сессию.
+На Linux нужен X11 (сессия с треем/appindicator). На Wayland без LayerShell трей может быть недоступен — используйте X11/XWayland-сессию. \
+Для запуска скомпилированного файла нужно один раз разрешить запуск командой `chmod +x BrightyMon` или поставить галочку «Разрешить выполнение файла как программы» в свойствах файла.
 
 ## Автозапуск (Windows)
 
