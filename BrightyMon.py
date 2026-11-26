@@ -239,8 +239,8 @@ class SliderPanel:
         main.grid_columnconfigure(0, weight=1, uniform="col")
         main.grid_columnconfigure(1, weight=1, uniform="col")
 
-        self.lbl_head_b = ttk.Label(main, text="Bright", anchor="center")
-        self.lbl_head_bl = ttk.Label(main, text="Blue", anchor="center")
+        self.lbl_head_b = ttk.Label(main, text="Яркость", anchor="center")
+        self.lbl_head_bl = ttk.Label(main, text="Синий", anchor="center")
         self.lbl_head_b.grid(row=0, column=0, padx=10)
         self.lbl_head_bl.grid(row=0, column=1, padx=10)
 
@@ -273,9 +273,9 @@ class SliderPanel:
         
         # Берем значения пресетов из настроек
         for text, cmd in [
-            ("Care",  lambda: self.apply_preset(self.settings["preset_care_b"], self.settings["preset_care_bl"])),
-            ("Read",  lambda: self.apply_preset(self.settings["preset_read_b"], self.settings["preset_read_bl"])),
-            ("Reset", self.reset_all),
+            ("Отдых",  lambda: self.apply_preset(self.settings["preset_care_b"], self.settings["preset_care_bl"])),
+            ("Чтение",  lambda: self.apply_preset(self.settings["preset_read_b"], self.settings["preset_read_bl"])),
+            ("Сброс", self.reset_all),
         ]:
             ttk.Button(inner, text=text, command=cmd, width=6, takefocus=False).pack(side="left", padx=4)
 
@@ -446,14 +446,14 @@ class SettingsWindow:
         self.var_read_b = tk.IntVar(value=self.settings["preset_read_b"])
         self.var_read_bl = tk.IntVar(value=self.settings["preset_read_bl"])
 
-        tk.Label(content, text="Care: Ярк / Син", bg=bg, fg=fg).grid(row=row+1, column=0, sticky="w", pady=2)
+        tk.Label(content, text="Отдых: Яркость / Синий", bg=bg, fg=fg).grid(row=row+1, column=0, sticky="w", pady=2)
         frame_care = tk.Frame(content, bg=bg)
         frame_care.grid(row=row+1, column=1, sticky="w")
         tk.Spinbox(frame_care, from_=MIN_LEVEL, to=MAX_LEVEL, textvariable=self.var_care_b, width=4).pack(side="left")
         tk.Label(frame_care, text="/", bg=bg, fg=fg).pack(side="left", padx=2)
         tk.Spinbox(frame_care, from_=MIN_BLUE, to=MAX_BLUE, textvariable=self.var_care_bl, width=4).pack(side="left")
 
-        tk.Label(content, text="Read: Ярк / Син", bg=bg, fg=fg).grid(row=row+2, column=0, sticky="w", pady=2)
+        tk.Label(content, text="Чтение: Яркость / Синий", bg=bg, fg=fg).grid(row=row+2, column=0, sticky="w", pady=2)
         frame_read = tk.Frame(content, bg=bg)
         frame_read.grid(row=row+2, column=1, sticky="w")
         tk.Spinbox(frame_read, from_=MIN_LEVEL, to=MAX_LEVEL, textvariable=self.var_read_b, width=4).pack(side="left")
